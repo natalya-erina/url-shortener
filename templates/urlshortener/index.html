@@ -1,0 +1,33 @@
+{% load static from staticfiles %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>URL Shortener</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+    </head>
+    <body>
+        <form action="" method="post" id="form-input">
+            {% csrf_token %}
+            <label>Shorten your URL</label><br>
+            <input type="text" placeholder="Input URL" name="long_url"/><br>
+            <input type="submit" value="Shorten URL" />
+        </form>
+        {% if latest_urls_list %}
+        <table>
+            <caption>Latest URLs</caption>
+            <tr>
+                <th>Original URL</th>
+                <th>Created at</th>
+                <th>Shortened URL</th>
+            </tr>
+            {% for url in latest_urls_list %}
+            <tr>
+                <td><a href="{{ url.source_url }}" target="_blank">{{ url.source_url }}</a></td>
+                <td>{{ url.created_at }}</td>
+                <td><a href="{{ url.short_url }}" target="_blank">{{ url.short_url }}</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </body>
+</html>

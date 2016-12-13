@@ -1,0 +1,14 @@
+{% load static from staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Short URL</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style_for_url.css' %}" />
+</head>
+<body>
+    <form action="" method="GET">
+        <p>Your short URL: <a href="{{ short_url }}" target="_blank">{{ short_url }}</a></p>
+        <input type="submit" value="<< Go back"/>
+    </form>
+</body>
+</html>

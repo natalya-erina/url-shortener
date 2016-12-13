@@ -1,0 +1,15 @@
+{% load static from staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'main.js' %}" ></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'style_for_show_ad.css' %}" />
+    <title>Short URL</title>
+</head>
+<body>
+    <input type="hidden" value="{{ orig_url }}" id="orig_url">
+    <p id="show_time">The ad will be closed in </p>
+    <image src="{% static 'cat.jpg' %}" alt="cat"/>
+</body>
+</html>
