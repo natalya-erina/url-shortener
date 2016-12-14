@@ -12,6 +12,10 @@ function printSeconds() {
     }
 }
 
+function changeImages() {
+
+}
+
 $(window).load(function() {
     interval = setInterval(printSeconds, 1000);
 });

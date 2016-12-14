@@ -10,4 +10,7 @@ class URL(models.Model):
 
 
 class Image(models.Model):
-    image = models.ImageField(upload_to='urlshortener/static')
+    image_url = models.CharField(max_length=256)
+
+    def __str__(self):
+        return self.image_url

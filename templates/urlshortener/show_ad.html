@@ -3,13 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript" src="{% static 'main.js' %}" ></script>
     <link rel="stylesheet" type="text/css" href="{% static 'style_for_show_ad.css' %}" />
     <title>Short URL</title>
+    <script>
+        var interval;
+        var i = 20;
+        var orig_url;
+        var imagesArray;
+        var paragraphToWrite;
+        function printSeconds() {
+            paragraphToWrite.empty();
+            paragraphToWrite.append('The ad will be closed in ' + i + ' seconds');
+            i -= 1;
+            $image = $('#image');
+            switch(true) {
+                case (i >= 15 && i <= 20):
+                    $image.attr("src", imagesArray[0]);
+                    break;
+                case (i < 15 && i >=10):
+                    $image.attr("src", imagesArray[1]);
+                    break;
+                case (i < 10 && i >= 5):
+                    $image.attr("src", imagesArray[2]);
+                    break;
+                case (i < 5 && i >= 0):
+                    $image.attr("src", imagesArray[3]);
+                    break;
+                default:
+                    clearInterval(interval);
+                    window.location = orig_url;
+            }
+        }
+        $(window).load(function() {
+            paragraphToWrite = $('#show_time');
+            imagesArray = {{ images|safe }};
+            interval = setInterval(printSeconds, 1000);
+        });
+        $(document).ready(function() {
+            orig_url = $('#orig_url').val();
+            $('#orig_url').remove();
+        });
+    </script>
 </head>
 <body>
     <input type="hidden" value="{{ orig_url }}" id="orig_url">
-    <p id="show_time">The ad will be closed in </p>
-    <image src="{% static 'cat.jpg' %}" alt="cat"/>
+    <p id="show_time"></p>
+    <image id = "image" src="" alt=""/>
 </body>
 </html>
