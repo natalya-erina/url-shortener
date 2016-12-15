@@ -7,7 +7,7 @@
     <title>Short URL</title>
     <script>
         var interval;
-        var i = 20;
+        var i;
         var orig_url;
         var imagesArray;
         var paragraphToWrite;
@@ -31,16 +31,29 @@
                     break;
                 default:
                     clearInterval(interval);
-                    window.location.href = orig_url;
+                    window.location.replace(orig_url);
+
             }
         }
+
+        function get_cookie ( cookie_name )
+        {
+          var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
+
+          if ( results )
+            return (results[2]);
+          else
+            return null;
+        }
+
         $(window).load(function() {
+            orig_url = get_cookie('orig_url').slice(1, -1);
+            i = get_cookie('time');
             paragraphToWrite = $('#show_time');
             imagesArray = {{ images|safe }};
             interval = setInterval(printSeconds, 1000);
         });
         $(document).ready(function() {
-            orig_url = $('#orig_url').val();
             $('#orig_url').remove();
         });
     </script>
