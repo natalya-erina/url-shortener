@@ -23,8 +23,8 @@ def index(request):
         URL.objects.create(source_url=request.POST.get("long_url"), created_at=now(), short_url=short_url)
         return render_to_response('urlshortener/url.html', {'short_url':short_url})
     else:
-        latest_urls_list = URL.objects.all()
-        return render_to_response('urlshortener/index.html', {'latest_urls_list':latest_urls_list})
+        latest_urls_list = URL.objects.all().order_by('-created_at')
+        return render_to_response('urlshortener/index.html', {'latest_urls_list':latest_urls_list, 'request':request})
 
 
 @csrf_exempt
@@ -39,4 +39,7 @@ def redirect_and_show_ad(request):
         if u.short_url.__eq__(path):
             original_url = u.source_url
             break
-    return render_to_response('urlshortener/show_ad.html', {'orig_url': original_url, 'images': images})
+    response = render_to_response('urlshortener/show_ad.html', {'orig_url': original_url, 'images': images})
+    response.set_cookie('orig_url', original_url)
+    response.set_cookie('time', 15)
+    return response
