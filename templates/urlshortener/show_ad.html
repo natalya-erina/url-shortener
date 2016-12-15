@@ -38,12 +38,11 @@
 
         function get_cookie ( cookie_name )
         {
-          var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
-
-          if ( results )
-            return (results[2]);
-          else
-            return null;
+           var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
+           if ( results )
+             return (results[2]);
+           else
+             return null;
         }
 
         $(window).load(function() {
@@ -53,13 +52,9 @@
             imagesArray = {{ images|safe }};
             interval = setInterval(printSeconds, 1000);
         });
-        $(document).ready(function() {
-            $('#orig_url').remove();
-        });
     </script>
 </head>
 <body>
-    <input type="hidden" value="{{ orig_url }}" id="orig_url">
     <p id="show_time"></p>
     <image id = "image" src="" alt=""/>
 </body>
