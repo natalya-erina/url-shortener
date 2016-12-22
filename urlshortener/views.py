@@ -19,11 +19,10 @@ def generate_short_url(request):
         short_url += str(ch)
     return short_url
 
+
 def contains(short_url):
-    for u in URL.objects.all():
-        if u.short_url.__eq__(short_url):
-            return True
-    return False
+    return URL.objects.all().filter(short_url=short_url).exists()
+
 
 @csrf_exempt
 def index(request):
@@ -35,7 +34,7 @@ def index(request):
         return render_to_response('urlshortener/url.html', {'short_url':short_url})
     else:
         latest_urls_list = URL.objects.all().order_by('-created_at')
-        return render_to_response('urlshortener/index.html', {'latest_urls_list':latest_urls_list, 'request':request})
+        return render_to_response('urlshortener/index.html', {'latest_urls_list':latest_urls_list})
 
 
 @csrf_exempt
